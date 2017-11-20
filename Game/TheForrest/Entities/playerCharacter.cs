@@ -1,10 +1,11 @@
 ﻿using System;
-namespace Game.TheForrest.Entities
+namespace TheForrest.Entities
 {
-    public class playerCharacter
+    public class playerCharacter : Engine.entity
     {
-        public playerCharacter()
+        public playerCharacter(char tex, Vector2 worldPos) : base(tex, worldPos)
         {
+            addComponent(new Components.cPlayerControl());
         }
     }
 }
