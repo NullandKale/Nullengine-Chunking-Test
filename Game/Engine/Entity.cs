@@ -13,13 +13,6 @@ namespace Engine
 
         public Vector2 ScreenPos;
         public Vector2 WorldPos;
-        public bool onScreen
-        {
-            get
-            {
-                return (ScreenPos != null);
-            }
-        }
 
         public entity(char tex, Vector2 worldPos)
         {
@@ -42,10 +35,7 @@ namespace Engine
 
         public void doRender()
         {
-            if (onScreen)
-            {
-                Renderer.renderer.render(ScreenPos, texture);
-            }
+            Renderer.renderer.render(ScreenPos, texture);
         }
 
         public void addComponent(iComponent c)
@@ -57,6 +47,7 @@ namespace Engine
 
         public void setPos(Vector2 updatedPos)
         {
+            Renderer.renderer.render(ScreenPos, Renderer.renderer.clear);
             WorldPos = updatedPos;
             updateScreenPos();
         }

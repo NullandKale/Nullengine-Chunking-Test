@@ -10,8 +10,8 @@ class Program
 
     public static void Main(string[] args)
     {
-        int xRes = 160;
-        int yRes = 45;
+        int xRes = Console.WindowWidth - 1;
+        int yRes = Console.WindowHeight - 1;
 
         for (int x = 0; x < xRes; x++)
         {

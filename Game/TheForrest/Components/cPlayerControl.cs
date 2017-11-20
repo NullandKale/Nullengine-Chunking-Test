@@ -23,12 +23,12 @@ namespace TheForrest.Components
 
             if(Game.i.IsKeyFalling(Program.moveUp))
             {
-                movement.y++;
+                movement.y--;
             }
 
             if (Game.i.IsKeyFalling(Program.moveDown))
             {
-                movement.y--;
+                movement.y++;
             }
 
             if (Game.i.IsKeyFalling(Program.moveleft))
@@ -42,7 +42,6 @@ namespace TheForrest.Components
             }
 
             e.setPos(movement);
-            Game.r.messages.Enqueue(e.ScreenPos.ToString());
         }
     }
 }

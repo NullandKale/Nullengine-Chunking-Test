@@ -12,7 +12,7 @@ namespace Engine
         public List<char[]> screenToWrite;
         public Queue<String> messages;
 
-        private char clear;
+        public char clear;
 
         public Renderer(Vector2 ScreenSize, char clearChar)
         {
@@ -48,22 +48,33 @@ namespace Engine
 
         public void doUpdate()
         {
+            int messageCount = messages.Count;
+            for(int i = 0; i < messageCount; i++)
+            {
+                char[] temp = messages.Dequeue().ToCharArray();
+                for(int j = 0; j < temp.Length; j++)
+                {
+                    screenToWrite[i][j] = temp[j];
+                }
+            }
+
             Console.SetCursorPosition(0, 0);
             for (int y = 0; y < windowRes.y; y++)
             {
                 Console.WriteLine(screenToWrite[y]);
             }
-
-            Console.SetCursorPosition(0,0);
-            while (messages.Count > 0)
-            {
-                Console.WriteLine(messages.Dequeue());
-            }
         }
 
         public void render(Vector2 ScreenPos, char tex)
         {
-            screenToWrite[ScreenPos.y][ScreenPos.x] = tex;
+            if(ScreenPos == null)
+            {
+                return;
+            }
+            else
+            {
+                screenToWrite[ScreenPos.y][ScreenPos.x] = tex;
+            }
         }
 
         public static Vector2 worldPosToScreenPos(Vector2 worldPos)
