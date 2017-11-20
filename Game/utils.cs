@@ -33,6 +33,21 @@ public class Vector2
     {
         return string.Format("[ " + x + ", " + y + "] ");
     }
+
+    public override bool Equals(object obj)
+    {
+        return (obj as Vector2).x == x && (obj as Vector2).y == y;
+    }
+
+    public override int GetHashCode()
+    {
+        return x << 16 & ((y << 16) >> 16);
+    }
+
+    public static Vector2 operator+(Vector2 a, Vector2 b)
+    {
+        return new Vector2(a.x + b.x, a.y + b.y);
+    }
 }
 
 public class Vector3
@@ -63,5 +78,15 @@ public class Vector3
     public override string ToString()
     {
         return string.Format("[ " + x + ", " + y + ", " + z +"]");
+    }
+
+    public static Vector3 operator +(Vector3 a, Vector3 b)
+    {
+        return new Vector3(a.x + b.x, a.y + b.y, a.z + b.z);
+    }
+
+    public static implicit operator Vector2(Vector3 input)
+    {
+        return input.toVec2();
     }
 }

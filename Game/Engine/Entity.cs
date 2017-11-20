@@ -12,9 +12,9 @@ namespace Engine
         public List<iComponent> components;
 
         public Vector2 ScreenPos;
-        public Vector2 WorldPos;
+        public Vector3 WorldPos;
 
-        public entity(char tex, Vector2 worldPos)
+        public entity(char tex, Vector3 worldPos)
         {
             texture = tex;
             WorldPos = worldPos;
@@ -45,10 +45,10 @@ namespace Engine
             c.start(this);
         }
 
-        public void setPos(Vector2 updatedPos)
+        public void setPos(Vector3 updatedPos)
         {
             Renderer.renderer.render(ScreenPos, Renderer.renderer.clear);
-            WorldPos = updatedPos;
+            WorldPos += updatedPos;
             updateScreenPos();
         }
 

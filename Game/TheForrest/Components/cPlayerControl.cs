@@ -5,11 +5,13 @@ namespace TheForrest.Components
 {
     public class cPlayerControl : iComponent
     {
-        public Vector2 movement;
+        public Vector3 movement;
+        public cEntityMapper entityMapper;
 
-        public cPlayerControl()
+        public cPlayerControl(cEntityMapper mapper)
         {
-            movement = new Vector2();
+            movement = new Vector3();
+            entityMapper = mapper;
         }
 
         public void start(entity e)
@@ -19,7 +21,7 @@ namespace TheForrest.Components
 
         public void update(entity e)
         {
-            movement = e.WorldPos;
+            movement = new Vector3();
 
             if(Game.i.IsKeyFalling(Program.moveUp))
             {
@@ -41,7 +43,43 @@ namespace TheForrest.Components
                 movement.x++;
             }
 
-            e.setPos(movement);
+            Vector3 fullMove = movement + e.WorldPos;
+            cEntityMapper spaceToCheck = EntityMap.e.CheckLocation(fullMove);
+
+            if (spaceToCheck == null || spaceToCheck.worldPos == e.WorldPos)
+            {
+
+                if (fullMove.x > Renderer.windowBottom.x)
+                {
+                    Renderer.windowOffset.x++;
+                }
+
+                if (fullMove.x < Renderer.windowOffset.x)
+                {
+                    Renderer.windowOffset.x--;
+                }
+
+                if (fullMove.y > Renderer.windowBottom.y)
+                {
+                    Renderer.windowOffset.y++;
+                }
+
+                if (fullMove.y < Renderer.windowOffset.y)
+                {
+                    Renderer.windowOffset.y--;
+                }
+
+                e.setPos(movement);
+            }
+            else
+            {
+                movement = new Vector3();
+            }
+
+            Game.r.messages.Enqueue("@position: " + e.WorldPos.ToString());
+            Game.r.messages.Enqueue("Window Offset: " + Renderer.windowOffset.ToString());
+            Game.r.messages.Enqueue("Window Bottom: " + Renderer.windowBottom.ToString());
+            Game.r.messages.Enqueue("Window Res: " + Renderer.windowRes.ToString());
         }
     }
 }

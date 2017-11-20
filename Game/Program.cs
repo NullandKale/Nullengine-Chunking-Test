@@ -13,24 +13,11 @@ class Program
         int xRes = Console.WindowWidth - 1;
         int yRes = Console.WindowHeight - 1;
 
-        for (int x = 0; x < xRes; x++)
-        {
-            for (int y = 0; y < yRes; y++)
-            {
-                Console.SetCursorPosition(x, y);
-                Console.Write('X');
-            }
-        }
-
-        Console.SetCursorPosition(0, 0);
-        Console.WriteLine("Hello World!");
-        Console.WriteLine("The Console Resolution: xRes: " + xRes + " yRes: " + yRes);
-
-        Engine.Game g = new Engine.Game(new Vector2(xRes, yRes), ' ');
+        Engine.Game g = new Engine.Game(new Vector2(xRes, yRes), ' ', 10);
 
         g.StartGame();
 
-        Console.SetCursorPosition(0, 0);
+        Console.SetCursorPosition(xRes, 0);
         Console.WriteLine("Good Bye!");
     }
 }

@@ -6,11 +6,19 @@ namespace Engine
     public class Renderer
     {
         public static Renderer renderer;
-        public static Vector2 windowOffset;
+        public static Vector3 windowOffset;
         public static Vector2 windowRes;
 
+        public static Vector2 windowBottom
+        {
+            get
+            {
+                return new Vector2(windowOffset.x + windowRes.x, windowOffset.y + windowRes.y);
+            }
+        }
+
         public List<char[]> screenToWrite;
-        public Queue<String> messages;
+        public Queue<string> messages;
 
         public char clear;
 
@@ -27,7 +35,7 @@ namespace Engine
 
             clear = clearChar;
             windowRes = ScreenSize;
-            windowOffset = new Vector2();
+            windowOffset = new Vector3();
             screenToWrite = new List<char[]>();
             messages = new Queue<string>();
             initScreen();
@@ -79,9 +87,21 @@ namespace Engine
 
         public static Vector2 worldPosToScreenPos(Vector2 worldPos)
         {
-            if (utils.isInRange(windowOffset.x, windowRes.x + windowOffset.x, worldPos.x) && (utils.isInRange(windowOffset.y, windowRes.y + windowOffset.y, worldPos.y)))
+            if (utils.isInRange(windowOffset.x, windowBottom.x, worldPos.x) && (utils.isInRange(windowOffset.y, windowBottom.y, worldPos.y)))
             {
-                return new Vector2(worldPos.x + windowOffset.x, worldPos.y + windowOffset.y);
+                return new Vector2(worldPos.x - windowOffset.x, worldPos.y - windowOffset.y);
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        public static Vector2 worldPosToScreenPos(Vector3 worldPos)
+        {
+            if (utils.isInRange(windowOffset.x, windowBottom.x, worldPos.x) && (utils.isInRange(windowOffset.y, windowBottom.x, worldPos.y)) && worldPos.z == windowOffset.z)
+            {
+                return new Vector2(worldPos.x - windowOffset.x, worldPos.y - windowOffset.y);
             }
             else
             {

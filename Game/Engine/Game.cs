@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-
+using TheForrest.Entities;
+using TheForrest.World;
 namespace Engine
 {
     public class Game
@@ -8,14 +9,17 @@ namespace Engine
         public static Game g;
         public static Renderer r;
         public static Input i;
+        public static EntityMap e;
+        public static World w;
 
         public bool run;
 
         public List<Action> toUpdate;
 
-        public TheForrest.Entities.playerCharacter pc;
+        public playerCharacter pc;
+        public Enemy enemy; 
 
-        public Game(Vector2 resolution, char clear)
+        public Game(Vector2 resolution, char clear, int boundSize)
         {
             if (g == null)
             {
@@ -30,15 +34,21 @@ namespace Engine
 
             r = new Renderer(resolution, clear);
             i = new Input();
+            e = new EntityMap(boundSize);
+            w = new World(new Vector2(11,11), new Vector3(10, 10, 100));
 
             run = true;
 
-            pc = new TheForrest.Entities.playerCharacter('@', new Vector2(10, 10));
+            enemy = new Enemy('E', new Vector3(15, 15, 0));
+            toUpdate.Add(enemy.doUpdate);
+
+            pc = new playerCharacter('@', new Vector3(10, 10, 0));
             toUpdate.Add(pc.doUpdate);
         }
 
         public void update()
         {
+            w.update();
             i.doUpdate();
 
             for (int i = 0; i < toUpdate.Count; i++)
