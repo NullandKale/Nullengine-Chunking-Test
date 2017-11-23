@@ -12,6 +12,8 @@ namespace Engine
         public static EntityMap e;
         public static World w;
 
+        public static int frameCount;
+
         public bool run;
 
         public Vector2 windowReserve;
@@ -41,6 +43,8 @@ namespace Engine
             e = new EntityMap(boundSize);
             w = new World(new Vector2(5,5), new Vector3(20, 20, 100));
 
+            frameCount = 0;
+
             run = true;
 
             enemy = new Enemy('E', new Vector3(15, 15, 0));
@@ -61,6 +65,8 @@ namespace Engine
             }
 
             r.doUpdate();
+
+            frameCount++;
         }
 
         public void StartGame()
@@ -69,6 +75,11 @@ namespace Engine
             {
                 update();
             }
+        }
+
+        public static bool doTick(int tickCount)
+        {
+            return frameCount % tickCount == 0;
         }
     }
 }

@@ -63,6 +63,10 @@ namespace TheForrest.World
                     {
                         t.doRender();
                     }
+                    else
+                    {
+                        Renderer.renderer.clearScreenAt(new Vector2(x, y));
+                    }
                 }
             }
         }
@@ -89,12 +93,12 @@ namespace TheForrest.World
             }
         }
 
-        public Tile getTile(Vector2 tilePos)
+        public Tile getTile(Vector2 worldPos)
         {
-            if(isValidWorldPos(tilePos))
+            if(isValidWorldPos(worldPos))
             {
-                Vector2 ChunkPos = WorldPosToChunkPos(tilePos);
-                return chunks[ChunkPos.x, ChunkPos.y].getTile(WorldPosToTilePos(tilePos));
+                Vector2 ChunkPos = WorldPosToChunkPos(worldPos);
+                return chunks[ChunkPos.x, ChunkPos.y].getTile(WorldPosToTilePos(worldPos));
             }
             else
             {
@@ -108,17 +112,17 @@ namespace TheForrest.World
             return chunks[ChunkPos.x, ChunkPos.y].getTile(WorldPosToTilePos(tilePos));
         }
 
-        public bool isOnScreen(Vector3 pos)
+        public bool isWorldPosOnScreen(Vector3 pos)
         {
             return utils.isInRange(Renderer.windowOffset.x, Renderer.windowBottom.x, pos.x) && utils.isInRange(Renderer.windowOffset.y, Renderer.windowBottom.y, pos.y) && pos.z == worldOffset.z;
         }
 
-        public Vector2 WorldPosToChunkPos(Vector2 WorldPos)
+        public bool isWorldPosOnScreen(int x, int y)
         {
-            return new Vector2(WorldPos.x / ChunkSize.x, WorldPos.y / ChunkSize.y);
+            return utils.isInRange(Renderer.windowOffset.x, Renderer.windowBottom.x, x) && utils.isInRange(Renderer.windowOffset.y, Renderer.windowBottom.y, y);
         }
 
-        public Vector2 WorldPosToChunkPos(Vector3 WorldPos)
+        public Vector2 WorldPosToChunkPos(Vector2 WorldPos)
         {
             return new Vector2(WorldPos.x / ChunkSize.x, WorldPos.y / ChunkSize.y);
         }
@@ -128,15 +132,9 @@ namespace TheForrest.World
             return new Vector3(WorldPos.x % ChunkSize.x, WorldPos.y % ChunkSize.y, worldOffset.z);
         }
 
-        public Vector3 WorldPosToTilePos(Vector3 WorldPos)
-        {
-            return new Vector3(WorldPos.x % ChunkSize.x, WorldPos.y % ChunkSize.y, WorldPos.z);
-        }
-
-
         public Vector3 ChunkTilePosToWorld(Vector2 ChunkPos, Vector3 TilePos)
         {
-            return new Vector3(ChunkPos.x * ChunkSize.x + TilePos.x, ChunkPos.y * ChunkSize.y + TilePos.y, TilePos.z);
+            return new Vector3((ChunkPos.x * ChunkSize.x) + TilePos.x, (ChunkPos.y * ChunkSize.y) + TilePos.y, TilePos.z);
         }
 
         public bool isValidWorldPos(Vector3 worldPos)
@@ -144,10 +142,9 @@ namespace TheForrest.World
             return (utils.isInRange(WorldSizeMin.x, WorldSizeMax.x, worldPos.x)) && (utils.isInRange(WorldSizeMin.y, WorldSizeMax.y, worldPos.y)) && (utils.isInRange(WorldSizeMin.z, WorldSizeMax.z, worldPos.z));
         }
 
-        public bool isValidWorldPos(Vector2 worldPos2D)
+        public bool isValidWorldPos(Vector2 worldPos)
         {
-            Vector3 worldPos3D = new Vector3(worldPos2D.x, worldPos2D.y, worldOffset.z);
-            return isValidWorldPos(worldPos3D);
+            return (utils.isInRange(WorldSizeMin.x, WorldSizeMax.x, worldPos.x)) && (utils.isInRange(WorldSizeMin.y, WorldSizeMax.y, worldPos.y));
         }
 
         public Vector2 WorldToScreenPos(Vector3 WorldPos)

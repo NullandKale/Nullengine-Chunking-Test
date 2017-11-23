@@ -40,7 +40,7 @@ namespace TheForrest.World
             {
                 for (int y = 0; y < TileHWL.y; y++)
                 {
-                    if (World.w.isOnScreen(new Vector3(x, y, World.w.worldOffset.z)))
+                    if (World.w.isWorldPosOnScreen(x,y))
                     {
                         tiles[x, y, World.w.worldOffset.z].doUpdate();
                     }
@@ -48,24 +48,10 @@ namespace TheForrest.World
             }
         }
 
-        public void render()
-        {
-            for (int x = 0; x < TileHWL.x; x++)
-            {
-                for (int y = 0; y < TileHWL.y; y++)
-                {
-                    if (World.w.isOnScreen(new Vector3(x, y, World.w.worldOffset.z)))
-                    {
-                        tiles[x, y, World.w.worldOffset.z].doRender();
-                    }
-                }
-            }
-        }
-
         public bool isChunkOnScreen()
         {
-            return (World.w.isOnScreen(World.w.ChunkTilePosToWorld(Pos, new Vector3(0, 0, 0))) || World.w.isOnScreen(World.w.ChunkTilePosToWorld(Pos, new Vector3(TileHWL.x, 0, 0))) ||
-                   World.w.isOnScreen(World.w.ChunkTilePosToWorld(Pos, new Vector3(0, TileHWL.y, 0))) || World.w.isOnScreen(World.w.ChunkTilePosToWorld(Pos, new Vector3(TileHWL.x, TileHWL.y, 0))));
+            return (World.w.isWorldPosOnScreen(World.w.ChunkTilePosToWorld(Pos, new Vector3(0, 0, 0))) || World.w.isWorldPosOnScreen(World.w.ChunkTilePosToWorld(Pos, new Vector3(TileHWL.x, 0, 0))) ||
+                   World.w.isWorldPosOnScreen(World.w.ChunkTilePosToWorld(Pos, new Vector3(0, TileHWL.y, 0))) || World.w.isWorldPosOnScreen(World.w.ChunkTilePosToWorld(Pos, new Vector3(TileHWL.x, TileHWL.y, 0))));
         }
 
         public bool isValidPos(Vector3 pos)

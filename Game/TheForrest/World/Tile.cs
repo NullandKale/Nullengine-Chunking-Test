@@ -9,7 +9,6 @@ namespace TheForrest.World
     public class Tile : Engine.entity
     {
         public Vector3 pos;
-        public Vector2 pos2D;
         public Chunk parent;
 
         public bool firstStart;
@@ -18,7 +17,6 @@ namespace TheForrest.World
         {
             this.parent = parent;
             pos = position;
-            pos2D = new Vector2(pos.x, pos.y);
 
             if (parent != null)
             {

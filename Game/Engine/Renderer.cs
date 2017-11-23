@@ -90,6 +90,17 @@ namespace Engine
             }
         }
 
+        public void clearScreenAt(Vector2 ScreenPos)
+        {
+            if (ScreenPos != null)
+            {
+                if (utils.isInRange(0, windowRes.x - 1, ScreenPos.x) && (utils.isInRange(0, windowRes.y - 1, ScreenPos.y)))
+                {
+                    screenToWrite[ScreenPos.y][ScreenPos.x] = clear;
+                }
+            }
+        }
+
         public static Vector2 worldPosToScreenPos(Vector2 worldPos)
         {
             if (utils.isInRange(windowOffset.x, windowBottom.x, worldPos.x) && (utils.isInRange(windowOffset.y, windowBottom.y, worldPos.y)))
