@@ -33,7 +33,7 @@ namespace Engine
             doRender();
         }
 
-        public void doRender()
+        public virtual void doRender()
         {
             Renderer.renderer.render(ScreenPos, texture);
         }
@@ -52,7 +52,7 @@ namespace Engine
             updateScreenPos();
         }
 
-        private void updateScreenPos()
+        public void updateScreenPos()
         {
             ScreenPos = Renderer.worldPosToScreenPos(WorldPos);
         }

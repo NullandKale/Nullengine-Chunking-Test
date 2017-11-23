@@ -76,8 +76,9 @@ namespace TheForrest.Components
                 movement = new Vector3();
             }
 
-            Game.r.messages.Enqueue("@position: " + e.WorldPos.ToString());
+            Game.r.messages.Enqueue("@position: " + e.WorldPos.ToString() + Game.w.WorldPosToChunkPos(e.WorldPos));
             Game.r.messages.Enqueue("Window Offset: " + Renderer.windowOffset.ToString());
+            Game.r.messages.Enqueue("World Offset: " + Game.w.worldOffset);
             Game.r.messages.Enqueue("Window Bottom: " + Renderer.windowBottom.ToString());
             Game.r.messages.Enqueue("Window Res: " + Renderer.windowRes.ToString());
         }

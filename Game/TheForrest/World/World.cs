@@ -49,14 +49,14 @@ namespace TheForrest.World
         {
             worldOffset = Renderer.windowOffset;
             WorldUpdate();
-            render();
+            //render();
         }
 
         public void render()
         {
-            for (int x = worldOffset.x; x < Renderer.windowRes.x - worldOffset.x; x++)
+            for (int x = worldOffset.x; x < Renderer.windowRes.x + worldOffset.x; x++)
             {
-                for (int y = worldOffset.y; y < Renderer.windowRes.y - worldOffset.y; y++)
+                for (int y = worldOffset.y; y < Renderer.windowRes.y + worldOffset.y; y++)
                 {
                     Tile t = getTile(new Vector2(x, y));
                     if(t != null)
@@ -192,7 +192,7 @@ namespace TheForrest.World
                 {
                     if (World.w.isOnScreen(new Vector3(x, y, World.w.worldOffset.z)))
                     {
-                        tiles[x, y, World.w.worldOffset.z].update();
+                        tiles[x, y, World.w.worldOffset.z].doUpdate();
                     }
                 }
             }
@@ -206,7 +206,7 @@ namespace TheForrest.World
                 {
                     if (World.w.isOnScreen(new Vector3(x, y, World.w.worldOffset.z)))
                     {
-                        tiles[x, y, World.w.worldOffset.z].doUpdate();
+                        tiles[x, y, World.w.worldOffset.z].doRender();
                     }
                 }
             }
@@ -245,7 +245,7 @@ namespace TheForrest.World
         public Vector2 pos2D;
         public Chunk parent;
 
-        Vector3 worldPos;
+        public bool firstStart;
 
         public Tile(char r, Vector3 position, Chunk parent) : base(r, position)
         {
@@ -255,15 +255,8 @@ namespace TheForrest.World
 
             if (parent != null)
             {
-                worldPos = World.w.ChunkTilePosToWorld(parent.Pos, pos);
-            }
-        }
-
-        public void update()
-        {
-            if (worldPos == null)
-            {
-                worldPos = World.w.ChunkTilePosToWorld(parent.Pos, pos);
+                WorldPos = World.w.ChunkTilePosToWorld(parent.Pos, pos);
+                updateScreenPos();
             }
         }
     }

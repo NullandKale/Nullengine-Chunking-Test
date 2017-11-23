@@ -14,6 +14,8 @@ namespace Engine
 
         public bool run;
 
+        public Vector2 windowReserve;
+
         public List<Action> toUpdate;
 
         public playerCharacter pc;
@@ -32,10 +34,12 @@ namespace Engine
 
             toUpdate = new List<Action>();
 
-            r = new Renderer(resolution, clear);
+            windowReserve = new Vector2(20, 4);
+
+            r = new Renderer(resolution, clear, windowReserve);
             i = new Input();
             e = new EntityMap(boundSize);
-            w = new World(new Vector2(11,11), new Vector3(10, 10, 100));
+            w = new World(new Vector2(5,5), new Vector3(20, 20, 100));
 
             run = true;
 
