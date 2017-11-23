@@ -41,7 +41,7 @@ namespace Engine
             r = new Renderer(resolution, clear, windowReserve);
             i = new Input();
             e = new EntityMap(boundSize);
-            w = new World(new Vector2(5,5), new Vector3(20, 20, 100));
+            w = new World(new Vector2(10,10), new Vector3(20, 20, 5));
 
             frameCount = 0;
 
@@ -67,6 +67,8 @@ namespace Engine
             r.doUpdate();
 
             frameCount++;
+
+            System.Threading.Thread.Sleep(1);
         }
 
         public void StartGame()

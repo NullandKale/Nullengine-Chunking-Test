@@ -68,7 +68,14 @@ namespace TheForrest.World
                 {
                     for (int z = 0; z < TileHWL.z; z++)
                     {
-                        tiles[x, y, z] = new Tile(filler, new Vector3(x, y, z), this);
+                        if (y == 0 || y == TileHWL.y || x == 0 || x == TileHWL.x)
+                        {
+                            tiles[x, y, z] = new Tile('#', new Vector3(x, y, z), this);
+                        }
+                        else
+                        {
+                            tiles[x, y, z] = new Tile(filler, new Vector3(x, y, z), this);
+                        }
                     }
                 }
             }

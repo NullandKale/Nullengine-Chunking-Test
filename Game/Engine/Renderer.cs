@@ -13,6 +13,7 @@ namespace Engine
         public static Vector2 windowBottom;
 
         public List<char[]> screenToWrite;
+        public char[] clearLine;
         public Queue<string> messages;
 
         public char clear;
@@ -28,6 +29,8 @@ namespace Engine
                 throw new Exception("Singleton Exception @ Renderer.cs");
             }
 
+
+            Console.CursorVisible = false;
             clear = clearChar;
             windowReserved = Reserve;
             windowRes = new Vector2(ScreenSize.x - Reserve.x, ScreenSize.y - Reserve.y);
@@ -35,6 +38,7 @@ namespace Engine
             windowBottom = new Vector2();
             updateWindowBottom();
             screenToWrite = new List<char[]>();
+            clearLine = new char[windowRes.x];
             messages = new Queue<string>();
             initScreen();
         }
@@ -53,6 +57,11 @@ namespace Engine
                 for (int x = 0; x < windowRes.x; x++)
                 {
                     screenToWrite[y][x] = clear;
+
+                    if(y == 0)
+                    {
+                        clearLine[x] = clear;
+                    }
                 }
             }
         }
@@ -76,6 +85,7 @@ namespace Engine
             for (int y = 0; y < windowRes.y; y++)
             {
                 Console.WriteLine(screenToWrite[y]);
+                clearLine.CopyTo(screenToWrite[y], 0);
             }
         }
 

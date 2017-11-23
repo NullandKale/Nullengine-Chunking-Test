@@ -35,6 +35,7 @@ namespace Engine
 
         public virtual void doRender()
         {
+            updateScreenPos();
             Renderer.renderer.render(ScreenPos, texture);
         }
 

@@ -21,7 +21,6 @@ namespace TheForrest.World
             if (parent != null)
             {
                 WorldPos = World.w.ChunkTilePosToWorld(parent.Pos, pos);
-                updateScreenPos();
             }
         }
 
