@@ -49,7 +49,7 @@ namespace TheForrest.World
         {
             worldOffset = Renderer.windowOffset;
             WorldUpdate();
-            //render();
+            render();
         }
 
         public void render()
@@ -153,111 +153,6 @@ namespace TheForrest.World
         public Vector2 WorldToScreenPos(Vector3 WorldPos)
         {
             return new Vector2(WorldPos.x - worldOffset.x, WorldPos.y - worldOffset.y);
-        }
-    }
-
-    public class Chunk
-    {
-        public Vector2 Pos;
-        public Vector3 TileHWL;
-
-        public Tile[,,] tiles;
-
-        public Chunk(char filler, Vector2 pos, Vector3 tileSize)
-        {
-            Pos = pos;
-            TileHWL = tileSize;
-
-            initTiles(filler);
-
-        }
-
-        public Tile getTile(Vector3 pos)
-        {
-            if (isValidPos(pos))
-            {
-                return tiles[pos.x, pos.y, pos.z];
-            }
-            else
-            {
-                return null;
-            }
-        }
-
-        public void update()
-        {
-            for (int x = 0; x < TileHWL.x; x++)
-            {
-                for (int y = 0; y < TileHWL.y; y++)
-                {
-                    if (World.w.isOnScreen(new Vector3(x, y, World.w.worldOffset.z)))
-                    {
-                        tiles[x, y, World.w.worldOffset.z].doUpdate();
-                    }
-                }
-            }
-        }
-
-        public void render()
-        {
-            for (int x = 0; x < TileHWL.x; x++)
-            {
-                for (int y = 0; y < TileHWL.y; y++)
-                {
-                    if (World.w.isOnScreen(new Vector3(x, y, World.w.worldOffset.z)))
-                    {
-                        tiles[x, y, World.w.worldOffset.z].doRender();
-                    }
-                }
-            }
-        }
-
-        public bool isChunkOnScreen()
-        {
-            return (World.w.isOnScreen(World.w.ChunkTilePosToWorld(Pos, new Vector3(0, 0, 0))) || World.w.isOnScreen(World.w.ChunkTilePosToWorld(Pos, new Vector3(TileHWL.x, 0, 0))) ||
-                   World.w.isOnScreen(World.w.ChunkTilePosToWorld(Pos, new Vector3(0, TileHWL.y, 0))) || World.w.isOnScreen(World.w.ChunkTilePosToWorld(Pos, new Vector3(TileHWL.x, TileHWL.y, 0))));
-        }
-
-        public bool isValidPos(Vector3 pos)
-        {
-            return (utils.isInRange(0, TileHWL.x - 1, pos.x) || utils.isInRange(0, TileHWL.y - 1, pos.y) || (utils.isInRange(0, TileHWL.z - 1, pos.z)));
-        }
-
-        private void initTiles(char filler)
-        {
-            tiles = new Tile[TileHWL.x, TileHWL.y, TileHWL.z];
-            for (int x = 0; x < TileHWL.x; x++)
-            {
-                for (int y = 0; y < TileHWL.y; y++)
-                {
-                    for (int z = 0; z < TileHWL.z; z++)
-                    {
-                        tiles[x, y, z] = new Tile(filler, new Vector3(x, y, z), this);
-                    }
-                }
-            }
-        }
-    }
-
-    public class Tile : Engine.entity
-    {
-        public Vector3 pos;
-        public Vector2 pos2D;
-        public Chunk parent;
-
-        public bool firstStart;
-
-        public Tile(char r, Vector3 position, Chunk parent) : base(r, position)
-        {
-            this.parent = parent;
-            pos = position;
-            pos2D = new Vector2(pos.x, pos.y);
-
-            if (parent != null)
-            {
-                WorldPos = World.w.ChunkTilePosToWorld(parent.Pos, pos);
-                updateScreenPos();
-            }
         }
     }
 }

@@ -41,6 +41,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Engine\Renderer.cs" />
     <Compile Include="TheForrest\Entities\Enemy.cs" />
+    <Compile Include="TheForrest\World\Chunk.cs" />
+    <Compile Include="TheForrest\World\Tile.cs" />
     <Compile Include="TheForrest\World\World.cs" />
     <Compile Include="utils.cs" />
     <Compile Include="Engine\iComponent.cs" />

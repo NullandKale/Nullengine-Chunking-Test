@@ -23,7 +23,7 @@ namespace Engine
             componentCount = 0;
         }
 
-        public void doUpdate()
+        public virtual void doUpdate()
         {
             for (int i = 0; i < components.Count; i++)
             {
