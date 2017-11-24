@@ -76,10 +76,6 @@ namespace TheForrest.Components
 
                     e.setPos(movement);
                 }
-                else
-                {
-                    movement = new Vector3();
-                }
             }
 
             Game.r.messages.Enqueue("@position: " + e.WorldPos.ToString() + Game.w.WorldPosToChunkPos(e.WorldPos));

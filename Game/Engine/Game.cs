@@ -56,6 +56,8 @@ namespace Engine
 
         public void update()
         {
+            r.doEarlyUpdate();
+
             w.update();
             i.doUpdate();
 
