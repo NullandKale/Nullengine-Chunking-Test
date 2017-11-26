@@ -49,27 +49,48 @@ namespace TheForrest.Components
                 }
 
                 Vector3 fullMove = movement + e.WorldPos;
+
+                if(fullMove.x < World.World.w.WorldSizeMin.x)
+                {
+                    movement.x++;
+                }
+
+                if(fullMove.x > World.World.w.WorldSizeMax.x)
+                {
+                    movement.x--;
+                }
+
+                if (fullMove.y < World.World.w.WorldSizeMin.y)
+                {
+                    movement.y++;
+                }
+
+                if (fullMove.y > World.World.w.WorldSizeMax.y)
+                {
+                    movement.y--;
+                }
+
                 cEntityMapper spaceToCheck = EntityMap.e.CheckLocation(fullMove);
 
                 if (spaceToCheck == null || spaceToCheck.worldPos == e.WorldPos)
                 {
 
-                    if (fullMove.x > Renderer.windowBottom.x)
+                    if (fullMove.x > Renderer.windowBottom.x && fullMove.x < World.World.w.WorldSizeMax.x)
                     {
                         Renderer.windowOffset.x++;
                     }
 
-                    if (fullMove.x < Renderer.windowOffset.x)
+                    if (fullMove.x < Renderer.windowOffset.x && fullMove.x > World.World.w.WorldSizeMin.x)
                     {
                         Renderer.windowOffset.x--;
                     }
 
-                    if (fullMove.y > Renderer.windowBottom.y)
+                    if (fullMove.y > Renderer.windowBottom.y && fullMove.y < World.World.w.WorldSizeMax.y)
                     {
                         Renderer.windowOffset.y++;
                     }
 
-                    if (fullMove.y < Renderer.windowOffset.y)
+                    if (fullMove.y < Renderer.windowOffset.y && fullMove.y > World.World.w.WorldSizeMin.y)
                     {
                         Renderer.windowOffset.y--;
                     }
@@ -79,6 +100,17 @@ namespace TheForrest.Components
                 else
                 {
                     movement = new Vector3();
+                }
+
+                if (Game.i.IsKeyRising(OpenTK.Input.Key.E))
+                {
+                    World.Tile t = World.World.w.getTile(new Vector2(e.WorldPos.x + 1, e.WorldPos.y));
+                    (t.getComponent(Type.GetType("cGameOfLife")) as cGameOfLife).alive = true;
+                }
+
+                if(Game.i.IsKeyFalling(OpenTK.Input.Key.Space))
+                {
+                    cGameOfLife.pause = !cGameOfLife.pause;
                 }
             }
 

@@ -76,6 +76,8 @@ namespace TheForrest.World
                         {
                             tiles[x, y, z] = new Tile(filler, new Vector3(x, y, z), this);
                         }
+
+                        tiles[x, y, z].addComponent(new Components.cGameOfLife());
                     }
                 }
             }

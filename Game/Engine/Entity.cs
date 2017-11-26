@@ -57,5 +57,18 @@ namespace Engine
         {
             ScreenPos = Renderer.worldPosToScreenPos(WorldPos);
         }
+
+        public iComponent getComponent(Type t)
+        {
+            for(int i = 0; i < components.Count; i++)
+            {
+                if(components[i].GetType() == t)
+                {
+                    return components[i];
+                }
+            }
+
+            throw new Exception("Component does not exist");
+        }
     }
 }
