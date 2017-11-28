@@ -1,10 +1,13 @@
 ﻿using System;
 using Engine;
+using TheForrest.world;
 
 namespace TheForrest.Components
 {
     public class cPlayerControl : iComponent
     {
+        public static bool showInfo = false;
+
         public Vector3 movement;
         public cEntityMapper entityMapper;
 
@@ -24,6 +27,16 @@ namespace TheForrest.Components
 
         public void update(entity e)
         {
+            if(Game.i.IsKeyRising(OpenTK.Input.Key.Escape))
+            {
+                Game.g.run = false;
+            }
+
+            if(Game.i.IsKeyFalling(Program.debugInfo))
+            {
+                showInfo = !showInfo;
+            }
+
             if(Game.doTick(timeBetweenMovements))
             {
                 movement = new Vector3();
@@ -48,13 +61,14 @@ namespace TheForrest.Components
                     movement.x++;
                 }
 
-                Vector3 fullMove = movement + e.WorldPos;
+                Vector3 fullMove = correctMove(movement + e.WorldPos);
+
                 cEntityMapper spaceToCheck = EntityMap.e.CheckLocation(fullMove);
 
                 if (spaceToCheck == null || spaceToCheck.worldPos == e.WorldPos)
                 {
 
-                    if (fullMove.x > Renderer.windowBottom.x)
+                    if (fullMove.x > Renderer.windowBottom.x - 1)
                     {
                         Renderer.windowOffset.x++;
                     }
@@ -64,7 +78,7 @@ namespace TheForrest.Components
                         Renderer.windowOffset.x--;
                     }
 
-                    if (fullMove.y > Renderer.windowBottom.y)
+                    if (fullMove.y > Renderer.windowBottom.y - 1)
                     {
                         Renderer.windowOffset.y++;
                     }
@@ -74,15 +88,45 @@ namespace TheForrest.Components
                         Renderer.windowOffset.y--;
                     }
 
-                    e.setPos(movement);
+                    e.setPos(fullMove);
                 }
             }
 
-            Game.r.messages.Enqueue("@position: " + e.WorldPos.ToString() + Game.w.WorldPosToChunkPos(e.WorldPos));
-            Game.r.messages.Enqueue("Window Offset: " + Renderer.windowOffset.ToString());
-            Game.r.messages.Enqueue("World Offset: " + Game.w.worldOffset);
-            Game.r.messages.Enqueue("Window Bottom: " + Renderer.windowBottom.ToString());
-            Game.r.messages.Enqueue("Window Res: " + Renderer.windowRes.ToString());
+            if(showInfo)
+            {
+                Game.r.messages.Enqueue("The Forest V0.0.1");
+                Game.r.messages.Enqueue("@position: " + e.WorldPos.ToString() + Game.w.WorldPosToChunkPos(e.WorldPos));
+                Game.r.messages.Enqueue("Update Time: " + Game.lastFrameTime);
+                Game.r.messages.Enqueue("Window Offset: " + Renderer.windowOffset.ToString());
+                Game.r.messages.Enqueue("World Offset: " + Game.w.worldOffset);
+                Game.r.messages.Enqueue("Window Bottom: " + Renderer.windowBottom.ToString());
+                Game.r.messages.Enqueue("Window Res: " + Renderer.windowRes.ToString());
+            }
+        }
+
+        private Vector3 correctMove(Vector3 move)
+        {
+            Vector3 cMove = move;
+
+            if(cMove.x < World.w.WorldSizeMin.x)
+            {
+                cMove.x = World.w.WorldSizeMin.x;
+            }
+            else if(cMove.x > World.w.WorldSizeMax.x)
+            {
+                cMove.x = World.w.WorldSizeMax.x;
+            }
+
+            if (cMove.y < World.w.WorldSizeMin.y)
+            {
+                cMove.y = World.w.WorldSizeMin.y;
+            }
+            else if (cMove.y > World.w.WorldSizeMax.y)
+            {
+                cMove.y = World.w.WorldSizeMax.y;
+            }
+
+            return cMove;
         }
     }
 }

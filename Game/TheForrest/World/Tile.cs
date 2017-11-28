@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TheForrest.World
+namespace TheForrest.world
 {
     public class Tile : Engine.entity
     {

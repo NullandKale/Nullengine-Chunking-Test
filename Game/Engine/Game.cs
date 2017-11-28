@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using TheForrest.Entities;
-using TheForrest.World;
+using TheForrest.world;
 namespace Engine
 {
     public class Game
@@ -13,6 +13,10 @@ namespace Engine
         public static World w;
 
         public static int frameCount;
+        public static long lastFrameTime;
+
+        public static readonly bool randomSeed = false;
+        public static readonly int seed;
 
         public bool run;
 
@@ -44,6 +48,7 @@ namespace Engine
             w = new World(new Vector2(10,10), new Vector3(20, 20, 5));
 
             frameCount = 0;
+            lastFrameTime = 0;
 
             run = true;
 
@@ -56,6 +61,8 @@ namespace Engine
 
         public void update()
         {
+            utils.startTimer();
+
             r.doEarlyUpdate();
 
             w.update();
@@ -70,7 +77,7 @@ namespace Engine
 
             frameCount++;
 
-            System.Threading.Thread.Sleep(1);
+            lastFrameTime = utils.endTimer();
         }
 
         public void StartGame()

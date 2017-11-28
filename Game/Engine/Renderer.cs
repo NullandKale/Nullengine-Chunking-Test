@@ -45,8 +45,8 @@ namespace Engine
 
         private void updateWindowBottom()
         {
-            windowBottom.x = windowOffset.x + windowRes.x - 1;
-            windowBottom.y = windowOffset.y + windowRes.y - 1;
+            windowBottom.x = windowOffset.x + windowRes.x;
+            windowBottom.y = windowOffset.y + windowRes.y;
         }
 
         void initScreen()

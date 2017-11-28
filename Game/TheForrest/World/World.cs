@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System;
 using TheForrest.Components;
 
-namespace TheForrest.World
+namespace TheForrest.world
 {
     public class World
     {

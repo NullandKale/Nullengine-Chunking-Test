@@ -9,7 +9,7 @@ namespace TheForrest.Entities
         public playerCharacter(char tex, Vector3 worldPos) : base(tex, worldPos)
         {
             mapper = new Engine.cEntityMapper();
-            controller = new Components.cPlayerControl(mapper, 15);
+            controller = new Components.cPlayerControl(mapper, 10);
             addComponent(controller);
             addComponent(mapper);
         }

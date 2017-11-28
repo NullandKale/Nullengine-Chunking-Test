@@ -46,10 +46,17 @@ namespace Engine
             c.start(this);
         }
 
-        public void setPos(Vector3 updatedPos)
+        public void setPosRelative(Vector3 updatedPos)
         {
             Renderer.renderer.render(ScreenPos, Renderer.renderer.clear);
             WorldPos += updatedPos;
+            updateScreenPos();
+        }
+
+        public void setPos(Vector3 updatedPos)
+        {
+            Renderer.renderer.render(ScreenPos, Renderer.renderer.clear);
+            WorldPos = updatedPos;
             updateScreenPos();
         }
 

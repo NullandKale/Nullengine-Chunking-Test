@@ -7,6 +7,8 @@ class Program
     public static OpenTK.Input.Key moveleft = OpenTK.Input.Key.A;
     public static OpenTK.Input.Key moveRight = OpenTK.Input.Key.D;
 
+    public static OpenTK.Input.Key debugInfo = OpenTK.Input.Key.F3;
+
 
     public static void Main(string[] args)
     {
