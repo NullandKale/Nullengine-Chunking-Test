@@ -56,6 +56,7 @@ public static class utils
     }
 }
 
+[Serializable]
 public class Vector2
 {
     public int x;
@@ -99,6 +100,7 @@ public class Vector2
     }
 }
 
+[Serializable]
 public class Vector3
 {
     public int x;

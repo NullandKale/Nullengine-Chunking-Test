@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace TheForrest.world
 {
+    [Serializable]
     public class Tile : Engine.entity
     {
         public Vector3 pos;

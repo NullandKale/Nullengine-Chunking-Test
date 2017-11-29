@@ -45,7 +45,7 @@ namespace Engine
             r = new Renderer(resolution, clear, windowReserve);
             i = new Input();
             e = new EntityMap(boundSize);
-            w = new World(new Vector2(10,10), new Vector3(20, 20, 5));
+            w = new World(new Vector2(16,16), new Vector3(16, 8, 4));
 
             frameCount = 0;
             lastFrameTime = 0;

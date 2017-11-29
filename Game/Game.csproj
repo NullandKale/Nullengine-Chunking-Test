@@ -60,6 +60,7 @@
     <Compile Include="Engine\Renderer.cs" />
     <Compile Include="TheForrest\Entities\Enemy.cs" />
     <Compile Include="TheForrest\world\Chunk.cs" />
+    <Compile Include="TheForrest\world\ChunkStorage.cs" />
     <Compile Include="TheForrest\world\Tile.cs" />
     <Compile Include="TheForrest\world\World.cs" />
     <Compile Include="utils.cs" />

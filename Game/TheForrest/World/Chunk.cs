@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace TheForrest.world
 {
+    [Serializable]
     public class Chunk
     {
         public Vector2 Pos;

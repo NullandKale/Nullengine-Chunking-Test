@@ -94,7 +94,7 @@ namespace TheForrest.Components
 
             if(showInfo)
             {
-                Game.r.messages.Enqueue("The Forest V0.0.1");
+                Game.r.messages.Enqueue("The Forest V0.0.1 Used Memory: " + GC.GetTotalMemory(false) / 1048576 + " MB");
                 Game.r.messages.Enqueue("@position: " + e.WorldPos.ToString() + Game.w.WorldPosToChunkPos(e.WorldPos));
                 Game.r.messages.Enqueue("Update Time: " + Game.lastFrameTime);
                 Game.r.messages.Enqueue("Window Offset: " + Renderer.windowOffset.ToString());
