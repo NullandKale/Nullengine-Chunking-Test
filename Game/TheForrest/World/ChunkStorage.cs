@@ -14,6 +14,7 @@ namespace TheForrest.world
         private Vector3 chunkSize;
 
         private const string filePrefix = "//Worlds//";
+        private const string test = "did it work?";
 
         public ChunkStorage(Vector2 WorldSize, Vector3 ChunkSize, string fileName)
         {
