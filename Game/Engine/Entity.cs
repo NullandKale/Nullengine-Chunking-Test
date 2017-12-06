@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 namespace Engine
 {
+    [Serializable]
     public class entity
     {
         public char texture;
