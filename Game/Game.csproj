@@ -60,9 +60,10 @@
     <Compile Include="Engine\Renderer.cs" />
     <Compile Include="TheForrest\Components\cGameOfLife.cs" />
     <Compile Include="TheForrest\Entities\Enemy.cs" />
-    <Compile Include="TheForrest\World\Chunk.cs" />
-    <Compile Include="TheForrest\World\Tile.cs" />
-    <Compile Include="TheForrest\World\World.cs" />
+    <Compile Include="TheForrest\world\Chunk.cs" />
+    <Compile Include="TheForrest\world\ChunkStorage.cs" />
+    <Compile Include="TheForrest\world\Tile.cs" />
+    <Compile Include="TheForrest\world\World.cs" />
     <Compile Include="utils.cs" />
     <Compile Include="Engine\iComponent.cs" />
     <Compile Include="Engine\Entity.cs" />

@@ -45,8 +45,8 @@ namespace Engine
 
         private void updateWindowBottom()
         {
-            windowBottom.x = windowOffset.x + windowRes.x - 1;
-            windowBottom.y = windowOffset.y + windowRes.y - 1;
+            windowBottom.x = windowOffset.x + windowRes.x;
+            windowBottom.y = windowOffset.y + windowRes.y;
         }
 
         void initScreen()
@@ -67,10 +67,13 @@ namespace Engine
         }
 
 
-        public void doUpdate()
+        public void doEarlyUpdate()
         {
             updateWindowBottom();
+        }
 
+        public void doUpdate()
+        {
             int messageCount = messages.Count;
             for(int i = 0; i < messageCount; i++)
             {

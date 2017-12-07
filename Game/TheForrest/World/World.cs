@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System;
 using TheForrest.Components;
 
-namespace TheForrest.World
+namespace TheForrest.world
 {
     public class World
     {
         public static World w;
+        public static ChunkStorage cs;
 
         public int seed;
 
@@ -16,8 +17,6 @@ namespace TheForrest.World
         public Vector3 WorldSizeMin;
         public Vector3 WorldSizeMax;
         public Vector3 worldOffset;
-
-        public Chunk[,] chunks;
 
         public bool showWorldPosition = false;
 
@@ -40,9 +39,7 @@ namespace TheForrest.World
             WorldSize = WorldSizeChunks;
             ChunkSize = ChunkSizeTiles;
 
-            chunks = new Chunk[WorldSize.x, WorldSize.y];
-
-            WorldInit();
+            cs = new ChunkStorage(WorldSize, ChunkSize, "World.stor");
         }
 
         public void update()
@@ -77,18 +74,7 @@ namespace TheForrest.World
             {
                 for (int y = 0; y < WorldSize.y; y++)
                 {
-                    chunks[x, y].update();
-                }
-            }
-        }
-
-        private void WorldInit()
-        {
-            for (int x = 0; x < WorldSize.x; x++)
-            {
-                for (int y = 0; y < WorldSize.y; y++)
-                {
-                    chunks[x, y] = new Chunk('-', new Vector2(x, y), ChunkSize);
+                    cs.chunkStore[x, y].update();
                 }
             }
         }
@@ -98,7 +84,7 @@ namespace TheForrest.World
             if(isValidWorldPos(worldPos))
             {
                 Vector2 ChunkPos = WorldPosToChunkPos(worldPos);
-                return chunks[ChunkPos.x, ChunkPos.y].getTile(WorldPosToTilePos(worldPos));
+                return cs.chunkStore[ChunkPos.x, ChunkPos.y].getTile(WorldPosToTilePos(worldPos));
             }
             else
             {
@@ -109,7 +95,7 @@ namespace TheForrest.World
         public Tile getTile(Vector3 tilePos)
         {
             Vector2 ChunkPos = WorldPosToChunkPos(tilePos);
-            return chunks[ChunkPos.x, ChunkPos.y].getTile(WorldPosToTilePos(tilePos));
+            return cs.chunkStore[ChunkPos.x, ChunkPos.y].getTile(WorldPosToTilePos(tilePos));
         }
 
         public bool isWorldPosOnScreen(Vector3 pos)
